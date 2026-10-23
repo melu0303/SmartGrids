@@ -2,10 +2,18 @@ package ar.edu.ungs.prog2.smartgrids;
 
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 
 
 public class SmartGrids implements ISmartGrids {
-	
+	private Map<String, PlantaElectrica> plantas;
+
+	public SmartGrids() {
+    plantas = new HashMap<>();
+	}
+
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
@@ -15,7 +23,24 @@ public class SmartGrids implements ISmartGrids {
 	public void registrarPlantaSolar(String nombre, String direccion, double capacidadMaxima,
 			String fechaHoraPuestaEnFuncionamiento, String fuentePrimaria, double eficienciaPromedio,
 			double superficieCubierta, int cantidadPaneles, double horasRadiacionDiaria) {
-		// TODO Auto-generated method stub
+		if (plantas.containsKey(nombre)) {
+    		throw new RuntimeException("La planta ya existe");
+		}
+		 LocalDateTime fecha =
+            LocalDateTime.parse(fechaHoraPuestaEnFuncionamiento);
+
+   		PlantaSolar solar = new PlantaSolar(
+            nombre,
+            direccion,
+            capacidadMaxima,
+            fecha,
+            fuentePrimaria,
+            eficienciaPromedio,
+            superficieCubierta,
+            cantidadPaneles,
+            horasRadiacionDiaria);
+
+    	plantas.put(nombre, solar);	
 		
 	}
 
@@ -23,24 +48,67 @@ public class SmartGrids implements ISmartGrids {
 	public void registrarPlantaEolica(String nombre, String direccion, double capacidadMaxima,
 			String fechaHoraPuestaEnFuncionamiento, String fuentePrimaria, double eficienciaPromedio,
 			int cantidadAerogeneradores, double alturaTorres, double velocidadMinimaViento) {
-		// TODO Auto-generated method stub
+		if (plantas.containsKey(nombre)) {
+        	throw new RuntimeException("La planta ya existe");
+    	}
 		
+	    LocalDateTime fecha = LocalDateTime.parse(fechaHoraPuestaEnFuncionamiento);
+		PlantaEolica eolica = new PlantaEolica(
+            nombre,
+            direccion,
+            capacidadMaxima,
+            fecha,
+            fuentePrimaria,
+            eficienciaPromedio,
+            cantidadAerogeneradores,
+            alturaTorres,
+            velocidadMinimaViento);
+		plantas.put(nombre, eolica);
 	}
 
 	@Override
 	public void registrarPlantaHidraulica(String nombre, String direccion, double capacidadMaxima,
 			String fechaHoraPuestaEnFuncionamiento, String fuentePrimaria, double eficienciaPromedio,
 			int cantidadTurbinas, double capacidadEmbalse) {
-		// TODO Auto-generated method stub
-		
+		if (plantas.containsKey(nombre)) {
+        	throw new RuntimeException("La planta ya existe");
+    	}
+
+    	LocalDateTime fecha =LocalDateTime.parse(fechaHoraPuestaEnFuncionamiento);
+	
+    	PlantaHidraulica hidraulica = new PlantaHidraulica(
+            nombre,
+            direccion,
+            capacidadMaxima,
+            fecha,
+            fuentePrimaria,
+            eficienciaPromedio,
+            cantidadTurbinas,
+            capacidadEmbalse);
+
+   		plantas.put(nombre, hidraulica);
 	}
 
 	@Override
 	public void registrarPlantaTermica(String nombre, String direccion, double capacidadMaxima,
 			String fechaHoraPuestaEnFuncionamiento, String tipoCombustible, double objetivoEmisionesCo2PorHora,
 			double capacidadAlmacenamientoCombustible) {
-		// TODO Auto-generated method stub
-		
+		if (plantas.containsKey(nombre)) {
+        	throw new RuntimeException("La planta ya existe");
+    	}
+
+    	LocalDateTime fecha = LocalDateTime.parse(fechaHoraPuestaEnFuncionamiento);
+
+   		PlantaTermica termica = new PlantaTermica(
+            nombre,
+            direccion,
+            capacidadMaxima,
+            fecha,
+            tipoCombustible,
+            objetivoEmisionesCo2PorHora,
+            capacidadAlmacenamientoCombustible);
+
+  		plantas.put(nombre, termica);
 	}
 
 	@Override
